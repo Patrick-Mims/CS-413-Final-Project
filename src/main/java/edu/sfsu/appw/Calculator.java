@@ -2,49 +2,74 @@ package edu.sfsu.appw;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
-public class Calculator implements Calculate {
+public class Calculator extends JFrame implements Money {
     public Calculator() {
         System.out.println("Calculator");
     }
 
-    // why protected?
-    protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
+    static JPanel nPanel = new JPanel();
+    static JPanel iPanel = new JPanel();
+    static JPanel pPanel = new JPanel();
+    static JPanel pmtPanel = new JPanel();
+    static JPanel fPanel = new JPanel();
 
-        return panel;
+    static void createTabs(final JFrame frame) {
+        JTabbedPane tp = new JTabbedPane(JTabbedPane.TOP);
+
+        tp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+
+        nPanel.setLayout(new FlowLayout((FlowLayout.CENTER)));
+
+        nPanel.add(new JLabel("I/Y(Interest per year) "));
+        nPanel.add(new JTextField(10));
+
+        nPanel.add(new JLabel("PV (Present Value)"));
+        nPanel.add(new JTextField(10));
+
+        nPanel.add(new JLabel("PMT (Periodic Payment)"));
+        nPanel.add(new JTextField(10));
+
+        nPanel.add(new JLabel("FV (Future Value)"));
+        nPanel.add(new JTextField(10));
+
+        iPanel.add(new JLabel("Interest"));
+        pPanel.add(new JLabel("Present Value"));
+        pmtPanel.add(new JLabel("Payment"));
+        fPanel.add(new JLabel("Future Value"));
+
+        tp.add("N", nPanel);
+        tp.add("I/Y", iPanel);
+        tp.add("PV", pPanel);
+        tp.add("PMT", pmtPanel);
+        tp.add("FV", fPanel);
+
+        frame.add(tp, BorderLayout.CENTER);
     }
 
-    /* Create Interface / GUI */
     void createWindow() {
-        JFrame frame = new JFrame("SFSU Financial Calculator");
+        JFrame frame = new JFrame("SFSU TVM Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 300);
         frame.setLocationRelativeTo(null);
 
-        /*
-        JPanel jPanel = new JPanel();
-        JTabbedPane jTabbedPane = new JTabbedPane();
+        createTabs(frame);
 
-
-        JComponent panel_1 = makeTextPanel("Panel #1");
-        tabbedPane.addTab("Tab 1", panel_1);
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-
-        tp.add("main", p1);
-
-
-        jPanel.setLayout(new GridBagLayout());
-        frame.add(tp);
-        */
-
-        //frame.add(jPanel);
+        frame.setSize(500, 400);
         frame.setVisible(true);
     }
 
     @Override
-    public void calculate() {
+    public void showForm() {
 
+    }
+
+    @Override
+    public void calculate() {
+        System.out.println("calculate total");
+    }
+
+    @Override
+    public void clear() {
+        System.out.println("clear form");
     }
 }

@@ -2,8 +2,12 @@ package edu.sfsu.appw;
 
 public class App {
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
-        calculator.createWindow();
+        //Calculator calculator = new Calculator();
+        //calculator.createWindow();
+
+        MoneyFactory moneyFactory = new MoneyFactory();
+        Money money = moneyFactory.getForm("N");
+        money.showForm();
     }
 }
 
