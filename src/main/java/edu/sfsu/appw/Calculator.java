@@ -3,73 +3,59 @@ package edu.sfsu.appw;
 import javax.swing.*;
 import java.awt.*;
 
-public class Calculator extends JFrame implements Money {
+public class Calculator extends JFrame {
     public Calculator() {
         System.out.println("Calculator");
     }
-
-    static JPanel nPanel = new JPanel();
-    static JPanel iPanel = new JPanel();
     static JPanel pPanel = new JPanel();
-    static JPanel pmtPanel = new JPanel();
     static JPanel fPanel = new JPanel();
+    static JPanel controlPanel = new JPanel();
 
-    static void createTabs(final JFrame frame) {
-        JTabbedPane tp = new JTabbedPane(JTabbedPane.TOP);
-
-        tp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-
-        nPanel.setLayout(new FlowLayout((FlowLayout.CENTER)));
-
-        nPanel.add(new JLabel("I/Y(Interest per year) "));
-        nPanel.add(new JTextField(10));
-
-        nPanel.add(new JLabel("PV (Present Value)"));
-        nPanel.add(new JTextField(10));
-
-        nPanel.add(new JLabel("PMT (Periodic Payment)"));
-        nPanel.add(new JTextField(10));
-
-        nPanel.add(new JLabel("FV (Future Value)"));
-        nPanel.add(new JTextField(10));
-
-        iPanel.add(new JLabel("Interest"));
-        pPanel.add(new JLabel("Present Value"));
-        pmtPanel.add(new JLabel("Payment"));
-        fPanel.add(new JLabel("Future Value"));
-
-        tp.add("N", nPanel);
-        tp.add("I/Y", iPanel);
-        tp.add("PV", pPanel);
-        tp.add("PMT", pmtPanel);
-        tp.add("FV", fPanel);
-
-        frame.add(tp, BorderLayout.CENTER);
-    }
-
+    static JPanel buttonPanel = new JPanel();
     void createWindow() {
+        JButton jb = new JButton("Calculate");
         JFrame frame = new JFrame("SFSU TVM Calculator");
+
+        frame.setSize(500, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridLayout(3,1));
 
-        createTabs(frame);
+        JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);
+        tab.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        frame.setSize(500, 400);
+        tab.add("PV", pPanel); // present value tab
+        tab.add("FV", fPanel); // future value tab
+
+        // present value
+        pPanel.add(new JLabel("Present Value"));
+        pPanel.add(new JLabel("N"));
+        pPanel.add(new JTextField(10));
+
+        pPanel.add(new JLabel("I/Y"));
+        pPanel.add(new JTextField(10));
+
+        pPanel.add(new JLabel("PV"));
+        pPanel.add(new JTextField(10));
+
+        pPanel.add(new JLabel("PMT"));
+        pPanel.add(new JTextField(10));
+
+        // Future Value
+        // fPanel.add(new JLabel("Future Value"));
+        // fPanel.add(new JTextField(10));
+
+        add(jb);
+
+        controlPanel.setLayout(new GridLayout());
+
+       /* The calculate button will have two settings, one for PV and the other for FV.
+        * A flag will be set for equalsIgnoreCase(), for the two states of the button: PV, FV.
+        * The PV subclass will render the computation for the PV and FS as well.
+        * * */
+
+        frame.add(tab, BorderLayout.CENTER);
+        frame.add(controlPanel);
         frame.setVisible(true);
-    }
-
-    @Override
-    public void showForm() {
-
-    }
-
-    @Override
-    public void calculate() {
-        System.out.println("calculate total");
-    }
-
-    @Override
-    public void clear() {
-        System.out.println("clear form");
     }
 }
