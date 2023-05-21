@@ -31,7 +31,7 @@ public class Calculator extends JFrame {
 
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        n_label = new JLabel("N");
+        n_label = new JLabel("N (Number of terms)");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 2;
         c.weightx = 0.0;
@@ -39,7 +39,7 @@ public class Calculator extends JFrame {
         c.gridy = 1;
         pane.add(n_label, c);
 
-        n_textField = new JTextField(10);
+        n_textField = new JTextField(7);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
         c.gridx = 2;
@@ -47,7 +47,7 @@ public class Calculator extends JFrame {
         c.weightx = 0.0;
         pane.add(n_textField, c);
 
-        iy_label = new JLabel("I/Y");
+        iy_label = new JLabel("I/Y (Interest Rate)");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 2;
         c.gridx = 0;
@@ -63,7 +63,7 @@ public class Calculator extends JFrame {
         c.weightx = 0.0;
         pane.add(iy_textField, c);
 
-        pv_label = new JLabel("PV");
+        pv_label = new JLabel("PV (Present Value)");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 2;
         c.gridx = 0;
@@ -79,7 +79,7 @@ public class Calculator extends JFrame {
         c.weightx = 0.0;
         pane.add(pv_textField, c);
 
-        pmt_label = new JLabel("PMT");
+        pmt_label = new JLabel("PMT (Payment)");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 2;
         c.gridx = 0;
@@ -95,29 +95,21 @@ public class Calculator extends JFrame {
         c.weightx = 0.0;
         pane.add(pmt_textField, c);
 
-        fv_label = new JLabel("FV");
+        JButton submitButton = new JButton("Calculate");
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 2;
+        c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 5;
         c.weightx = 0.0;
-        pane.add(fv_label, c);
+        pane.add(submitButton, c);
 
-        fv_textField = new JTextField(10);
+        JLabel resultItem = new JLabel();
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 1;
-        c.gridx = 2;
-        c.gridy = 5;
-        c.weightx = 0.0;
-        pane.add(fv_textField, c);
-
-        JButton submitButton = new JButton("Calculate");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 2;
+        c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 6;
         c.weightx = 0.0;
-        pane.add(submitButton, c);
+        pane.add(resultItem, c);
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -125,9 +117,22 @@ public class Calculator extends JFrame {
                 if(n_textField.getText().equals("") ||
                    iy_textField.getText().equals("") ||
                    pv_textField.getText().equals("") ||
-                   pmt_textField.getText().equals("") ||
-                   fv_textField.getText().equals("")) {
-                    JOptionPane.showMessageDialog(pane, "Error: Incomplete.");
+                   pmt_textField.getText().equals("")) {
+                   JOptionPane.showMessageDialog(pane, "Error: Incomplete.");
+                } else {
+                    // convert String to Int
+                    int term = Integer.parseInt(n_textField.getText());
+                    int interest = Integer.parseInt(iy_textField.getText());
+                    int present_value = Integer.parseInt(pv_textField.getText());
+                    int pmt = Integer.parseInt(pmt_textField.getText());
+
+                    System.out.println("Number: " + term);
+                    System.out.println("Interest: " + interest);
+                    System.out.println("Present Value: " + present_value);
+                    System.out.println("Payment: " + pmt);
+
+                    // convert Int to Sting
+                    resultItem.setText("Future Value: $" + String.valueOf(Math.pow(present_value * (1 + interest), 2)));
                 }
             }
         });
@@ -138,22 +143,22 @@ public class Calculator extends JFrame {
 
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(250, 300);
+        frame.setSize(400, 300);
 
         JMenuBar menuBar = new JMenuBar();
 
         // Main Menu
-        JMenu jmFile = new JMenu("File");
+        JMenu jMenu = new JMenu("File");
 
-        JMenuItem jmiOpen = new JMenuItem("Open");
-        JMenuItem jmiClose = new JMenuItem("Close");
-        JMenuItem jmiExit = new JMenuItem("Exit");
+        JMenuItem itemOpen = new JMenuItem("Open");
+        JMenuItem itemClose = new JMenuItem("Close");
+        JMenuItem itemExit = new JMenuItem("Exit");
 
-        jmFile.add(jmiOpen);
-        jmFile.add(jmiClose);
-        jmFile.add(jmiExit);
+        jMenu.add(itemOpen);
+        jMenu.add(itemClose);
+        jMenu.add(itemExit);
 
-        menuBar.add(jmFile);
+        menuBar.add(jMenu);
 
         // About
         JMenu menuAbout = new JMenu("About");
